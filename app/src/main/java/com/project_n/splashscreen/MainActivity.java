@@ -1,23 +1,73 @@
 package com.project_n.splashscreen;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.project_n.splashscreen.activity.AddUserActivity;
+import com.project_n.splashscreen.activity.DetailActivity;
 import com.project_n.splashscreen.util.PreferenceHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tampilUser;
-    PreferenceHelper instance;
+    private Button buttonChange;
+    private Button buttonChangeFragment;
+    private Button buttonAddUser;
+    private Button buttonListUser;
+    private EditText editText;
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tampilUser = (TextView) findViewById(R.id.TamilUser);
-        instance = PreferenceHelper.getInstance(getApplicationContext());
-        tampilUser.setText(instance.getName());
+        buttonChange = findViewById(R.id.changeActivity);
+        buttonChangeFragment = findViewById(R.id.changeFragmentActivity);
+        editText = findViewById(R.id.inputText);
+        name = findViewById(R.id.etName);
+        buttonAddUser = findViewById(R.id.addUser);
+        buttonListUser = findViewById(R.id.listUser);
+
+        name.setText("Hello : "+ PreferenceHelper.getInstance(getApplicationContext()).getName());
+
+        buttonChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtra("keyhello", editText.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        buttonChangeFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, WithFragmentActivity
+                        .class);
+                startActivity(intent);
+            }
+        });
+
+        buttonAddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonListUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

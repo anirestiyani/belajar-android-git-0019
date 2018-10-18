@@ -11,31 +11,29 @@ import com.project_n.splashscreen.util.PreferenceHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText UserLogin, PasswordLogin;
     PreferenceHelper instance;
+    private EditText name;
+    private EditText email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        UserLogin = (EditText) findViewById(R.id.ET_UserName);
-        PasswordLogin = (EditText) findViewById(R.id.ET_UserPass);
         instance = PreferenceHelper.getInstance(getApplicationContext());
 
-
+        name = findViewById(R.id.ET_UserName);
+        email = findViewById(R.id.ET_UserPass);
     }
 
-
-    public void TombolLogin(View view) {
-        String User = UserLogin.getText().toString();
-        String Pass = PasswordLogin.getText().toString();
-        Toast.makeText(getApplicationContext(), "Berhasil Login", Toast.LENGTH_SHORT).show();
+    public void Login(View view) {
+        String n = name.getText().toString();
+        String e = email.getText().toString();
+        Toast.makeText(getApplicationContext(), "Success Login", Toast.LENGTH_SHORT).show();
         instance.setLogin(true);
-        instance.setName(User);
-        instance.setPass(Pass);
+        instance.setName(n);
 
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(i);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
